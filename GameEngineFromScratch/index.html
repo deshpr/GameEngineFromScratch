@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>TypeScript HTML App</title>
+    <link rel="stylesheet" href="app.css" type="text/css" />
+     <script src="src/lib/gl-matrix.js"></script>
+    <script src="src/Engine/Transform.js"></script>
+    <script src="src/Engine/Engine_Core.js"></script>
+    <script src="src/Engine/Engine_VertexBuffer.js"></script>
+    <script src="src/Engine/SimpleShader.js"></script>
+    <script  src="src/Engine/Renderable.js"></script>
+
+    <script src="src/MyGame/MyGame.js"></script>
+   
+
+    <!-- define the vertex shader-->
+    <!--
+        uniform: to indicate a global variable, are used throughout the life of the
+        program. So if we wanted to scale the vertex points, we use uniform.
+        attribute: thye are specific to a vertex point. They can  only be used in the 
+         vertex shader.
+        Next, the output of each shader is passed using specific variables.
+        So the value of the position fo the vertex  is passed by the vertex shader to the
+        fragment shader using the gl_position variavble.
+        The output of the fragment shader is a 4-d vector: r,g,b,a   for the pixel to be rendered
+        after it has been processed by the shader code.
+        uniform mat4 transformMatrix;
+        
+    -->
+  
+    <script type="x-shader/x-vertex" id="VertexShader">
+        attribute vec3 aSquareVertexPosition;
+        uniform mat4 uModelTransform;
+        uniform mat4 uViewProjectionTransform;
+
+        void main(void){        
+           gl_Position = uViewProjectionTransform* uModelTransform *  vec4(aSquareVertexPosition, 1.0);
+        }
+    </script> 
+        <!-- define the fragment shader.-->
+     <script  type="x-shader/fragment-shader" id="FragmentShader">
+         precision mediump float;
+         uniform vec4 uPixelColor;
+            void main(void){
+                gl_FragColor = uPixelColor;
+            } 
+        </script> 
+   
+</head>
+<body>
+    <h1>TypeScript HTML App</h1>
+     <canvas  id="GLCanvas" height="480" width="640">
+         Your browser does not support canvas element.
+     </canvas>
+    <div id="content"></div>
+</body>
+</html>
