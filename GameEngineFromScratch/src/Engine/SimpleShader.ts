@@ -3,18 +3,25 @@
    mCompiledShader: any;
    mShaderVertexPositionAttribute: any;
    mPixelColor: number[];
-   mModelTransform: WebGLUniformLocation;
+   mModelTransform: Float32Array;
    mViewProjectionTransform: Float32Array;
    
 
-   public activateShader(pixelColor: number[], viewProjectionTransform: Float32Array): any {
+   public activateShader(pixelColor: number[], viewProjectionTransform: any): void {
        var gl = GameEngine.Core.getGL();
        gl.useProgram(this.mCompiledShader);
-       gl.enableVertexAttribArray(this.mShaderVertexPositionAttribute);
-       gl.uniform4fv(this.mPixelColor, pixelColor);
        gl.uniformMatrix4fv(this.mViewProjectionTransform, false, viewProjectionTransform);
+       gl.enableVertexAttribArray(this.mShaderVertexPositionAttribute);
+       gl.uniform4fv(this.mPixelColor, pixelColor);      
    }
+    
 
+   private  activateViewProjectionMatrix(viewProjectionMatrixTransform: any) : void {
+       var gl = GameEngine.Core.getGL();
+       gl.uniformMatrix4fv(this.mViewProjectionTransform, false, viewProjectionMatrixTransform);
+       console.log('loaded the object transform');
+    }
+   
     
    public getShader(): any {
        return this.mCompiledShader;
@@ -51,10 +58,12 @@
         
    }
 
-   initVertexPosition(): void {
-       var vertexPosition: Float32Array = vec3.createFrom(1.2, 1.2, 0);
+
+   public loadObjectTransform(transformMatrix: any): void {
        var gl = GameEngine.Core.getGL();
-      
+       gl.uniformMatrix4fv(this.mModelTransform, false, transformMatrix);
+       console.log('loaded the object transform');
+
    }
 
    public loadMatrixTransform(matrixTransform: Float32Array) {

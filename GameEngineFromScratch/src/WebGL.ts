@@ -1,6 +1,4 @@
 ﻿
-
-     var gl: any;
 /*
      class WebGL {
 

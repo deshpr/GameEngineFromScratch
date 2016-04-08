@@ -4,17 +4,23 @@ var GameEngine;
     (function (Core) {
         var mGl;
         var gl;
+        var canvas;
         function clearCanvas(color) {
-            this.mGl.clearColor(color[0], color[1], color[2], color[3]);
-            this.mGl.clear(this.mGl.COLOR_BUFFER_BIT);
+            this.gl.clearColor(color[0], color[1], color[2], color[3]);
+            this.gl.clear(this.mGl.COLOR_BUFFER_BIT);
         }
         Core.clearCanvas = clearCanvas;
         function getGL() {
-            return this.mGl;
+            return this.gl;
         }
         Core.getGL = getGL;
+        function getCanvas() {
+            return this.canvas;
+        }
+        Core.getCanvas = getCanvas;
         function initializeWebGL(canvasId) {
             var canvas = document.getElementById(canvasId);
+            this.canvas = canvas;
             this.gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
             if (gl != null) {
                 gl.clearColor(0.1, 0.6, 0.5, 1.0);

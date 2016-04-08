@@ -22,16 +22,22 @@ var SimpleShader = (function () {
     SimpleShader.prototype.activateShader = function (pixelColor, viewProjectionTransform) {
         var gl = GameEngine.Core.getGL();
         gl.useProgram(this.mCompiledShader);
+        gl.uniformMatrix4fv(this.mViewProjectionTransform, false, viewProjectionTransform);
         gl.enableVertexAttribArray(this.mShaderVertexPositionAttribute);
         gl.uniform4fv(this.mPixelColor, pixelColor);
-        gl.uniformMatrix4fv(this.mViewProjectionTransform, false, viewProjectionTransform);
+    };
+    SimpleShader.prototype.activateViewProjectionMatrix = function (viewProjectionMatrixTransform) {
+        var gl = GameEngine.Core.getGL();
+        gl.uniformMatrix4fv(this.mViewProjectionTransform, false, viewProjectionMatrixTransform);
+        console.log('loaded the object transform');
     };
     SimpleShader.prototype.getShader = function () {
         return this.mCompiledShader;
     };
-    SimpleShader.prototype.initVertexPosition = function () {
-        var vertexPosition = vec3.createFrom(1.2, 1.2, 0);
+    SimpleShader.prototype.loadObjectTransform = function (transformMatrix) {
         var gl = GameEngine.Core.getGL();
+        gl.uniformMatrix4fv(this.mModelTransform, false, transformMatrix);
+        console.log('loaded the object transform');
     };
     SimpleShader.prototype.loadMatrixTransform = function (matrixTransform) {
         var gl = GameEngine.Core.getGL();

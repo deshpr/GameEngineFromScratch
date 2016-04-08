@@ -1,41 +1,46 @@
-var MyGameEngine = (function () {
-    function MyGameEngine() {
-        this.kFPS = 60;
-        this.kMPF = 1000 / this.kFPS;
-    }
-    // define the game loop
-    MyGameEngine.prototype.update = function () {
-    };
-    MyGameEngine.prototype.draw = function () {
-    };
-    MyGameEngine.prototype.start = function () {
-        this.mPreviousTime = Date.now();
-        this.mLagTime = 0.0;
-        this.mIsLoopRunning = true;
-        var myGame = this.currentGame;
-        requestAnimationFrame(function () {
-            myGame.runLoop();
-        });
-    };
-    MyGameEngine.prototype.runLoop = function () {
-        if (this.mIsLoopRunning) {
-            // Step A: Set up the call for the next animation frame.
-            var currentGame = this;
-            requestAnimationFrame(function () {
-                currentGame.runLoop();
-            });
-            // Step B: compute elapsed time since last loop was executed
-            this.mCurrentTime = Date.now();
-            this.mElapsedTime = this.mCurrentTime - this.mPreviousTime;
-            this.mPreviousTime = this.mCurrentTime;
-            this.mLagTime += this.mElapsedTime;
-            if (this.mLagTime >= this.kMPF) {
-                this.update();
-                this.mLagTime -= this.kMPF;
-            }
-            this.draw();
+var GameEngine;
+(function (GameEngine) {
+    var GameLoop;
+    (function (GameLoop) {
+        var kFPS = 60;
+        var kMPF = 1000 / kFPS;
+        var mPreviousTime;
+        var mElapsedTime;
+        var mCurrentTime;
+        var mLagTime;
+        var mIsLoopRunning;
+        // define the game loop
+        function update() {
         }
-    };
-    return MyGameEngine;
-})();
+        function draw() {
+        }
+        function start() {
+            mPreviousTime = Date.now();
+            mLagTime = 0.0;
+            mIsLoopRunning = true;
+            requestAnimationFrame(function () {
+                runLoop();
+            });
+        }
+        GameLoop.start = start;
+        function runLoop() {
+            if (this.mIsLoopRunning) {
+                // Step A: Set up the call for the next animation frame.
+                requestAnimationFrame(function () {
+                    runLoop();
+                });
+                // Step B: compute elapsed time since last loop was executed
+                this.mCurrentTime = Date.now();
+                this.mElapsedTime = this.mCurrentTime - this.mPreviousTime;
+                this.mPreviousTime = this.mCurrentTime;
+                this.mLagTime += this.mElapsedTime;
+                if (this.mLagTime >= this.kMPF) {
+                    this.update();
+                    this.mLagTime -= this.kMPF; // catch up...
+                }
+                this.draw();
+            }
+        }
+    })(GameLoop = GameEngine.GameLoop || (GameEngine.GameLoop = {}));
+})(GameEngine || (GameEngine = {}));
 //# sourceMappingURL=Engine_GameLoop.js.map

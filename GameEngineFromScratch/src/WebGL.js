@@ -1,4 +1,3 @@
-var gl;
 /*
      class WebGL {
 

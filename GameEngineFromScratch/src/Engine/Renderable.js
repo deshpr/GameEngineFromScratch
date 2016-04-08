@@ -16,7 +16,13 @@ var Renderable = (function () {
     Renderable.prototype.draw = function (viewProjectionMatrix) {
         var gl = GameEngine.Core.getGL();
         this.mShader.activateShader(this.mColor, viewProjectionMatrix);
-        this.mShader.loadMatrixTransform(this.getTransform().getXForm());
+        //this.mShader.
+        console.log('the modified vewProjMatrix = ' + viewProjectionMatrix);
+        // console.log('matrix transform = ' + matrixTransform);
+        console.log('from the Transform class = ' + this.getTransform().getXForm());
+        this.mShader.loadObjectTransform(this.getTransform().getXForm());
+        console.log('the umodeltransform = ' + this.mShader.mModelTransform);
+        console.log('theb  proje transform = ' + this.mShader.mViewProjectionTransform);
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     };
     return Renderable;

@@ -2,6 +2,7 @@ var GameEngine;
 (function (GameEngine) {
     var VertexBuffer;
     (function (VertexBuffer) {
+        // Mode 
         VertexBuffer.verticesOfSquare = [
             0.5, 0.5, 0,
             -0.5, 0.5, 0,

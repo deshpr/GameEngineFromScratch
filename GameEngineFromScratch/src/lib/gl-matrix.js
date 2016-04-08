@@ -1759,7 +1759,9 @@
         var rl = (right - left),
             tb = (top - bottom),
             fn = (far - near);
-        dest[0] = 2 / rl;
+            console.log('rl = ' + rl + ' and tb = ' + tb)
+            dest[0] = 2 / rl;
+        console.log('result one = ' + dest[0])
         dest[1] = 0;
         dest[2] = 0;
         dest[3] = 0;
@@ -1775,6 +1777,7 @@
         dest[13] = -(top + bottom) / tb;
         dest[14] = -(far + near) / fn;
         dest[15] = 1;
+        console.log('destination = ' + dest)
         return dest;
     };
 

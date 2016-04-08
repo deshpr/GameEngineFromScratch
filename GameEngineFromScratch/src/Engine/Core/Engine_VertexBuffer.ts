@@ -1,6 +1,6 @@
 ﻿module GameEngine.VertexBuffer {
 
-
+    // Mode 
       export var verticesOfSquare = [
         0.5, 0.5, 0,
         -0.5, 0.5, 0,

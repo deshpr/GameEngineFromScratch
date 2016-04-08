@@ -70,9 +70,14 @@
     getXForm(): Float32Array {
         var matrix = mat4.create();
         mat4.identity(matrix);
-        mat4.translate(matrix, matrix, vec3.createFrom(this.getX(), this.getY(), 0.0));
-        mat4.rotateZ(matrix, this.getRotationInRadians(), matrix);
+//        mat4.translate(xform, vec3.createFrom(0.1, 0, 0), xform);
+        mat4.translate(matrix, vec3.createFrom(this.getX(), this.getY(), 0.0), matrix);
+
+      
+   //     mat4.scale(xform, vec3.createFrom(1.1, 1.0, 0.0), xform);
         mat4.scale(matrix, vec3.createFrom(this.getWidth(), this.getHeight(), 1.0), matrix);
+      //  mat4.rotateZ(xform, 1.5, xform);
+        mat4.rotateZ(matrix, this.getRotationInRadians(), matrix);
         return matrix;
         
     }

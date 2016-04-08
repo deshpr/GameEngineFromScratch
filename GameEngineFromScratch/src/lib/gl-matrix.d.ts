@@ -2800,7 +2800,7 @@ interface quat {
    * @param {quat} b the second operand
    * @returns {quat} out
    */
-  multiply(out: Float32Array, a: Float32Array, b: Float32Array): Float32Array;
+  multiply(a: Float32Array, b: Float32Array, out: Float32Array): Float32Array;
 
   /**
    * Multiplies two quat's
