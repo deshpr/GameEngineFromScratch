@@ -4,6 +4,9 @@ class MyGame {
 
 
     private mShader: SimpleShader;
+    private redSquare: Renderable;
+    private camera: Camera;
+
     
     constructor(canvasID: string) {
         GameEngine.Core.initializeWebGL(canvasID);
@@ -84,22 +87,49 @@ class MyGame {
         mat4.multiply(projMatrix, viewMatrix, vpMatrix);
         console.log('resulting matrix = ' + vpMatrix);
        
-
-
         var viewPortDimensions: number[] = [100, 60, 900, 300];
         var center: Float32Array = vec2.createFrom(20, 70);
-        var worldWidth:number = 40;
-        var camera: Camera = new Camera(center, viewPortDimensions, worldWidth);
-        camera.setupViewProjection();
-        var redSquare: Renderable = new Renderable(this.mShader);
-        redSquare.setColor([0.8, 1, 1, 1]);
-        redSquare.getTransform().setPosition(10, 0);
-        redSquare.getTransform().setSize(1, 1);
-        redSquare.getTransform().setRotationInDegrees(0);
+        var worldWidth:number = 100;
+        this.camera = new Camera(center, viewPortDimensions, worldWidth);
+        this.redSquare = new Renderable(this.mShader);
+        this.redSquare.setColor([0.8, 1, 1, 1]);
+        this.redSquare.getTransform().setPosition(25, 0);
+        this.redSquare.getTransform().setSize(10, 10);
+        this.redSquare.getTransform().setRotationInDegrees(25);
         console.log(' the view projection matrix  calculated to= ');
-        console.log(camera.getViewProjectionMatrix());
-        redSquare.draw(camera.getViewProjectionMatrix());
-    }    
+        console.log(this.camera.getViewProjectionMatrix());
+      //  this.redSquare.draw(this.camera.getViewProjectionMatrix());
+        GameEngine.GameLoop.start(this);
+        GameEngine.GameInput.initialize();
+    }
+    
+    
+        
+    
+    public update(): void {
+        GameEngine.GameInput.update();
+        if (GameEngine.GameInput.isKeyPressed(GameEngine.GameInput.KeyboardConstants.Left)) {
+            this.redSquare.setColor([1, 0, 0, 1]);
+        }
+        else {
+            this.redSquare.setColor([0.8, 1, 1, 1]);
+        }
+        var deltaX: number = 0.1;
+        var deltaSize: number = 1.005; 
+        if (this.redSquare.getTransform().getX() > 50) {
+            this.redSquare.getTransform().setX(10);
+        }
+        this.redSquare.getTransform().incXPosBy(deltaX);
+        this.redSquare.getTransform().incSizeBy(deltaSize);
+        this.redSquare.getTransform().incRotationByDegree(1);
+    }
+
+    public draw(): void {
+    
+       
+       this.camera.setupViewProjection();
+       this.redSquare.draw(this.camera.getViewProjectionMatrix());
+    }
 
 
     initialize(): void {

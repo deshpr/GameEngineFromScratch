@@ -8,37 +8,39 @@ var GameEngine;
         var mElapsedTime;
         var mCurrentTime;
         var mLagTime;
+        var currentGame;
         var mIsLoopRunning;
         // define the game loop
         function update() {
         }
         function draw() {
         }
-        function start() {
+        function start(gameInstance) {
             mPreviousTime = Date.now();
             mLagTime = 0.0;
             mIsLoopRunning = true;
+            currentGame = gameInstance;
             requestAnimationFrame(function () {
                 runLoop();
             });
         }
         GameLoop.start = start;
         function runLoop() {
-            if (this.mIsLoopRunning) {
+            if (mIsLoopRunning) {
                 // Step A: Set up the call for the next animation frame.
                 requestAnimationFrame(function () {
                     runLoop();
                 });
                 // Step B: compute elapsed time since last loop was executed
-                this.mCurrentTime = Date.now();
-                this.mElapsedTime = this.mCurrentTime - this.mPreviousTime;
-                this.mPreviousTime = this.mCurrentTime;
-                this.mLagTime += this.mElapsedTime;
-                if (this.mLagTime >= this.kMPF) {
-                    this.update();
-                    this.mLagTime -= this.kMPF; // catch up...
+                mCurrentTime = Date.now();
+                mElapsedTime = mCurrentTime - mPreviousTime;
+                mPreviousTime = mCurrentTime;
+                mLagTime += mElapsedTime;
+                if (mLagTime >= kMPF) {
+                    currentGame.update();
+                    mLagTime -= kMPF; // catch up...
                 }
-                this.draw();
+                currentGame.draw();
             }
         }
     })(GameLoop = GameEngine.GameLoop || (GameEngine.GameLoop = {}));

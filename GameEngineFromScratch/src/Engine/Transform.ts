@@ -19,6 +19,21 @@
         }        
     }
 
+    incXPosBy(incx: number): void {
+        var curX: number = this.getX();
+        this.setPosition(curX + incx, this.getY());
+    }
+
+    incSizeBy(incSize: number): void {
+        var curSizeX = this.getSize()[0];
+        var curSizeY = this.getSize()[1];
+        this.setSize(curSizeX * incSize, curSizeY * incSize);
+    }
+
+    incRotationByDegree(degree: number): void {
+        this.setRotationInDegrees(this.getRotationInDegrees() + degree);
+    }
+
     setX(x: number): void {
         this.mPosition[0] = x;
     }
@@ -49,6 +64,10 @@
 
     setRotationInDegrees(angle): void {
         this.setRotationInRadians(angle * Math.PI / 180);
+    }
+
+    getRotationInDegrees(): number {
+        return this.getRotationInRadians() * 180 / Math.PI;
     }
 
     setSize(width: number, height: number): void {

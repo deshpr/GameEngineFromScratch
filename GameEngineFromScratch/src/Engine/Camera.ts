@@ -108,7 +108,7 @@
         this.setUpViewMatrix();
         this.setUpProjectionMatrix();
         this.calculateAndSetViewProjectionMatrix();
-        console.log('camera'
+       
 
     }
 

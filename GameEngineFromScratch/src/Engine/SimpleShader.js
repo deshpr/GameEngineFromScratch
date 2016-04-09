@@ -50,6 +50,7 @@ var SimpleShader = (function () {
         // obtain the shader source from index.h tml
         shaderText = document.getElementById(id);
         shaderSource = shaderText.firstChild.textContent;
+        var gl = GameEngine.Core.getGL();
         compileShader = gl.createShader(shaderType);
         // compile the created shader
         gl.shaderSource(compileShader, shaderSource);

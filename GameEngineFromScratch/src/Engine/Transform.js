@@ -10,6 +10,18 @@ var Transform = (function () {
             this.mRotationInRadians -= (2 * Math.PI);
         }
     };
+    Transform.prototype.incXPosBy = function (incx) {
+        var curX = this.getX();
+        this.setPosition(curX + incx, this.getY());
+    };
+    Transform.prototype.incSizeBy = function (incSize) {
+        var curSizeX = this.getSize()[0];
+        var curSizeY = this.getSize()[1];
+        this.setSize(curSizeX * incSize, curSizeY * incSize);
+    };
+    Transform.prototype.incRotationByDegree = function (degree) {
+        this.setRotationInDegrees(this.getRotationInDegrees() + degree);
+    };
     Transform.prototype.setX = function (x) {
         this.mPosition[0] = x;
     };
@@ -36,6 +48,9 @@ var Transform = (function () {
     };
     Transform.prototype.setRotationInDegrees = function (angle) {
         this.setRotationInRadians(angle * Math.PI / 180);
+    };
+    Transform.prototype.getRotationInDegrees = function () {
+        return this.getRotationInRadians() * 180 / Math.PI;
     };
     Transform.prototype.setSize = function (width, height) {
         this.mScale = vec2.createFrom(width, height);

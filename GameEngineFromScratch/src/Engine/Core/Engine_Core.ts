@@ -11,18 +11,23 @@
 
     }
 
-
-
+    
     export  function getGL(){
         return this.gl;
     }
+    
+  /*   function initializeWebGLCore(htmlCanvasId: string) {
 
-    export function getCanvas() {
-        return this.canvas;
+        var result: boolean = initializeWebGL(htmlCanvasId);
+        if (result) {
+            GameEngine.VertexBuffer.initializeBuffer();
+            GameEngine.GameInput.initialize();
+        }
     }
+    */
 
 
-    export function initializeWebGL(canvasId:string) {
+    export function initializeWebGL(canvasId: string) {
         var canvas = <HTMLCanvasElement>document.getElementById(canvasId);
         this.canvas = canvas;
         this.gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
@@ -32,12 +37,12 @@
             gl.clear(gl.COLOR_BUFFER_BIT);
             console.log('initialized the mgl');
             this.mGl = gl;
-            
             GameEngine.VertexBuffer.initializeBuffer();
+        //    GameEngine.GameInput.initialize();
+//            return true;
         } else {
             document.write("<b>Web GL not supported</b>")
-        }
-       
-
+  //          return false;
+        }       
     }
 }

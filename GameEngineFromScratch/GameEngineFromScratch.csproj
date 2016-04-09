@@ -32,8 +32,10 @@
     <TypeScriptCompile Include="game.ts" />
     <TypeScriptCompile Include="src\Engine\Camera.ts" />
     <TypeScriptCompile Include="src\Engine\Core\Engine_Core.ts" />
+    <TypeScriptCompile Include="src\Engine\Core\Engine_GameInput.ts" />
     <TypeScriptCompile Include="src\Engine\Core\Engine_GameLoop.ts" />
     <TypeScriptCompile Include="src\Engine\Core\Engine_VertexBuffer.ts" />
+    <TypeScriptCompile Include="src\Engine\Core\Resources\ResourceMap.ts" />
     <TypeScriptCompile Include="src\Engine\Renderable.ts" />
     <TypeScriptCompile Include="src\Engine\SimpleShader.ts" />
     <TypeScriptCompile Include="src\Engine\Transform.ts" />

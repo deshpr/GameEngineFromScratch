@@ -62,7 +62,6 @@ var Camera = (function () {
         this.setUpViewMatrix();
         this.setUpProjectionMatrix();
         this.calculateAndSetViewProjectionMatrix();
-        console.log('camera');
     };
     return Camera;
 })();

@@ -14,10 +14,15 @@ var GameEngine;
             return this.gl;
         }
         Core.getGL = getGL;
-        function getCanvas() {
-            return this.canvas;
-        }
-        Core.getCanvas = getCanvas;
+        /*   function initializeWebGLCore(htmlCanvasId: string) {
+      
+              var result: boolean = initializeWebGL(htmlCanvasId);
+              if (result) {
+                  GameEngine.VertexBuffer.initializeBuffer();
+                  GameEngine.GameInput.initialize();
+              }
+          }
+          */
         function initializeWebGL(canvasId) {
             var canvas = document.getElementById(canvasId);
             this.canvas = canvas;

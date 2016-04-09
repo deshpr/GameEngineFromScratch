@@ -5,10 +5,10 @@
    mPixelColor: number[];
    mModelTransform: Float32Array;
    mViewProjectionTransform: Float32Array;
-   
+
 
    public activateShader(pixelColor: number[], viewProjectionTransform: any): void {
-       var gl = GameEngine.Core.getGL();
+         var gl = GameEngine.Core.getGL();
        gl.useProgram(this.mCompiledShader);
        gl.uniformMatrix4fv(this.mViewProjectionTransform, false, viewProjectionTransform);
        gl.enableVertexAttribArray(this.mShaderVertexPositionAttribute);
@@ -79,6 +79,7 @@
         // obtain the shader source from index.h tml
         shaderText = document.getElementById(id)
         shaderSource = shaderText.firstChild.textContent;
+        var gl = GameEngine.Core.getGL();
 
         compileShader = gl.createShader(shaderType);
         // compile the created shader

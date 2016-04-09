@@ -1,6 +1,5 @@
-﻿module  GameEngine.GameLoop {
-
-
+﻿module GameEngine.GameLoop {
+    
     var kFPS: number = 60;
     var kMPF: number = 1000 / kFPS;
 
@@ -8,6 +7,7 @@
     var mElapsedTime: number;
     var mCurrentTime: number;
     var mLagTime: number;
+    var currentGame: any;
 
     var mIsLoopRunning: boolean;
     
@@ -21,36 +21,36 @@
 
     }
 
-    export function start(): void {
+    export function start(gameInstance:any): void {
         mPreviousTime = Date.now();
         mLagTime = 0.0;
         mIsLoopRunning = true;
-        
+        currentGame = gameInstance;
         requestAnimationFrame(function () {
             runLoop();
         });
 
     }
-
     
+
     function runLoop(): void {
-        if (this.mIsLoopRunning) {
+        if (mIsLoopRunning) {
             // Step A: Set up the call for the next animation frame.
         
             requestAnimationFrame(function () {
-               runLoop();
+                runLoop();
             });
             // Step B: compute elapsed time since last loop was executed
-            this.mCurrentTime = Date.now();
-            this.mElapsedTime = this.mCurrentTime - this.mPreviousTime;
-            this.mPreviousTime = this.mCurrentTime;
-            this.mLagTime += this.mElapsedTime;
+            mCurrentTime = Date.now();
+            mElapsedTime = mCurrentTime - mPreviousTime;
+            mPreviousTime = mCurrentTime;
+            mLagTime += mElapsedTime;
 
-            if (this.mLagTime >= this.kMPF) {
-                this.update();
-                this.mLagTime -= this.kMPF; // catch up...
+            if ( mLagTime >= kMPF) {
+                 currentGame.update();
+                mLagTime -= kMPF; // catch up...
             }
-            this.draw();
+           currentGame.draw();
         }
     }
     
